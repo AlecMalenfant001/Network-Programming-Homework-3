@@ -100,14 +100,14 @@ public class AdditionServer_Hw3_v4 {
 
             int n = 0;
             while (outerSentinalCheck >= 0) { // an integer value of -1 ends the sequence
-               System.out.println("outerSentinalCheck = " + outerSentinalCheck);
+
                sum += outerSentinalCheck;
 
-               while (n >= 0) {
-                  request = in.readLine();
-                  n = Integer.parseInt(request.trim());
+               request = in.readLine();
+               while (request != null
+                     && (n = Integer.parseInt(request.trim())) >= 0) {
                   sum += n;
-                  System.out.println("n = " + n);
+                  request = in.readLine();
                }
                // send sum to client
                System.out.println("SERVER: Client " + clientCounter + ": Message received: sum = " + sum);
@@ -117,7 +117,6 @@ public class AdditionServer_Hw3_v4 {
 
                // get the next number of ints to read
                outerSentinalCheck = Integer.parseInt(in.readLine().trim());
-               System.out.println("outerSentinalCheck = " + outerSentinalCheck);
 
             }
 

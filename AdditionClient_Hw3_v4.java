@@ -68,19 +68,18 @@ public class AdditionClient_Hw3_v4 {
       int outerSentinalCheck = stdin.nextInt();
 
       while (outerSentinalCheck >= 0) { // an integer value of -1 ends the sequence
-         System.out.println("outerSentinalCheck = " + outerSentinalCheck);
 
          out.println(outerSentinalCheck); // Send int as a text string on its own line.
          out.flush(); // send the int
 
-         // read integers and send them to the server
-         int n = 0;
-         while (n >= 0) {
-            n = stdin.nextInt();
+         // Send the server a sequence of ints.
+         int n;
+         while (stdin.hasNextInt()
+               && (n = stdin.nextInt()) >= 0) {
             out.println(n); // Send each int as a text string on its own line.
-            System.out.println("n = " + n);
          }
-         out.flush(); // send all the ints
+         out.println(-1); // Send -1 to end the sequence of integer values.
+         out.flush(); // all the ints
 
          // Receive the server's response.
          try {
