@@ -76,9 +76,16 @@ public class AdditionClient_Hw3_v3 {
       int intCount = stdin.nextInt();
 
       while (intCount >= 0) { // an integer value of -1 ends the sequence
+
          out.println(intCount); // Send each int as a text string on its own line.
          out.flush(); // send the int
-         intCount = -1;
+
+         // read integers and send them to the server
+         for (int j = 0; j < intCount; j++) {
+            final int n = stdin.nextInt();
+            out.println(n); // Send each int as a text string on its own line.
+         }
+         out.flush(); // send all the ints
 
          // Receive the server's response.
          try {
@@ -89,7 +96,13 @@ public class AdditionClient_Hw3_v3 {
             System.out.println("CLIENT: Cannot receive response from server.");
             System.out.println(e);
          }
+
+         // get the next number of ints to read
+         intCount = stdin.nextInt();
+
       }
+      out.println(-1); // Tell the server there are no more ints to read
+      out.flush();
 
       // Disconnect from the server.
       try {
@@ -99,6 +112,6 @@ public class AdditionClient_Hw3_v3 {
          System.out.println("CLIENT: Cannot disconnect from server.");
          System.out.println(e);
       }
-
    }
+
 }

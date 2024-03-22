@@ -93,16 +93,26 @@ public class AdditionServer_Hw3_v3 {
             int sum = 0;
             String request;
 
-            // read the first line to get the number of sequences to read from the client
+            // read the first line to get the number of ints to read from the client
             request = in.readLine();
-            final int sequenceCount = Integer.parseInt(request);
-            sum = sequenceCount;
+            int intCount = Integer.parseInt(request);
 
-            // send sum to client
-            System.out.println("SERVER: Client " + clientCounter + ": Message received: sum = " + sum);
-            out.println(sum); // Send the sum as a text string.
-            out.flush(); // Now make sure that the response is sent.
-            sum = 0;
+            while (intCount >= 0) { // an integer value of -1 ends the sequence
+               for (int j = 0; j < intCount; j++) {
+                  request = in.readLine();
+                  final int n = Integer.parseInt(request.trim());
+                  sum += n;
+               }
+               // send sum to client
+               System.out.println("SERVER: Client " + clientCounter + ": Message received: sum = " + sum);
+               out.println(sum); // Send the sum as a text string.
+               out.flush(); // Now make sure that the response is sent.
+               sum = 0;
+
+               // get the next number of ints to read
+               intCount = Integer.parseInt(in.readLine().trim());
+
+            }
 
             socket.close(); // We are done with the client's request.
             System.out.println("SERVER: Client " + clientCounter + ": Closed socket.");
