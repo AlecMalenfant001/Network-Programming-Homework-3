@@ -1,7 +1,9 @@
 /*
-
-
-*/
+      Course: CS 33600
+      Name: Alec Malenfant
+      Email: alecmalenf@pnw.edu
+      Assignment: 3
+   */
 
 import java.net.*;
 import java.io.*;
@@ -66,28 +68,32 @@ public class AdditionClient_Hw3_v3 {
 
       /*
        * Note : There are -1's in the data that need to be added. Therefore, we should
-       * check for the sentinal when
+       * check for the sentinal 
        * getting the number of integers that are going to be sent to the server.
        */
 
-      // get the number of integers to send to the server from the first sequence of
+      // 0) read the number of integers to send to the server from the first sequence of
       // ints
       final Scanner stdin = new Scanner(System.in);
       int intCount = stdin.nextInt();
 
+      // 1) Either send the server a negative integer and go to step 6,
+      // or go to step 2.
       while (intCount >= 0) { // an integer value of -1 ends the sequence
 
+         // 2) Send the server a positive integer indicating
+         // the length of a sequence of integer values.
          out.println(intCount); // Send each int as a text string on its own line.
          out.flush(); // send the int
 
-         // read integers and send them to the server
+         // 3) Send the server a sequence of integers with the specified length.
          for (int j = 0; j < intCount; j++) {
             final int n = stdin.nextInt();
             out.println(n); // Send each int as a text string on its own line.
          }
          out.flush(); // send all the ints
 
-         // Receive the server's response.
+         // 4) Receive back from the server the sum of the sequence.
          try {
             final String response = in.readLine();
             final int sum = Integer.parseInt(response.trim());
@@ -100,11 +106,13 @@ public class AdditionClient_Hw3_v3 {
          // get the next number of ints to read
          intCount = stdin.nextInt();
 
+         //5) Go to step 1.
+
       }
       out.println(-1); // Tell the server there are no more ints to read
       out.flush();
 
-      // Disconnect from the server.
+      // 6) Close the connection to the server.
       try {
          socket.close();
          System.out.println("CLIENT: Closed socket");

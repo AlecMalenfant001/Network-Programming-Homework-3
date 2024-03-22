@@ -1,7 +1,9 @@
 /*
-
-
-*/
+      Course: CS 33600
+      Name: Alec Malenfant
+      Email: alecmalenf@pnw.edu
+      Assignment: 3
+   */
 
 import java.net.*;
 import java.io.*;
@@ -89,32 +91,38 @@ public class AdditionServer_Hw3_v1 {
 
          // Implement the appropriate client/server protocol.
 
-         // Read the client's sequence of integer values,
-         // sum them, and send back the sum.
+         
          try {
             int sum = 0;
             String request;
 
-            // read the first line to get the number of sequences to read from the client
+            //1) Read a positive integer indicating the
+            // number of integer sequences to expect.
             request = in.readLine();
             final int sequenceCount = Integer.parseInt(request);
 
             for (int i = 0; i < sequenceCount; i++) {
-               // Read the next int to get the number of ints to add together
-               request = in.readLine();
+               //2) Read a positive integer indicating the
+                //* number of integer values to expect.
                final int intCount = Integer.parseInt(request);
+
+               //3) Read the specified number of integer values,
+               // one value per line of text.
                for (int j = 0; j < intCount; j++) {
                   request = in.readLine();
                   final int n = Integer.parseInt(request.trim());
                   sum += n;
                }
-               // send sum to client
+               // 4) Send back the sum of the sequence as a text string.
                System.out.println("SERVER: Client " + clientCounter + ": Message received: sum = " + sum);
                out.println(sum); // Send the sum as a text string.
                out.flush(); // Now make sure that the response is sent.
+               
+               //5) If not the last sequence, then go back to step 2.
                sum = 0;
+               
             }
-
+            // 6) Close the connection to the client.
             socket.close(); // We are done with the client's request.
             System.out.println("SERVER: Client " + clientCounter + ": Closed socket.");
          } catch (IOException e) {

@@ -1,7 +1,9 @@
 /*
-
-
-*/
+      Course: CS 33600
+      Name: Alec Malenfant
+      Email: alecmalenf@pnw.edu
+      Assignment: 3
+   */
 
 import java.net.*;
 import java.io.*;
@@ -62,25 +64,28 @@ public class AdditionClient_Hw3_v2 {
       }
 
       // Implement the appropriate client/server protocol.
-      // get The number of sequences from stdin and send it to the server
+      
+      //1) Send the server a positive integer indicating the
+      // number of integer sequences that will follow.
       final Scanner stdin = new Scanner(System.in);
       final int sequenceCount = stdin.nextInt();
       out.println(sequenceCount); // Send each int as a text string on its own line.
       out.flush(); // all the ints
 
-      // send the rest of the ints
+      
       for (int i = 0; i < sequenceCount; i++) {
 
-         // Send the server a sequence of ints.
+         // 2) Send the server a sequence of positive integers.
          int n;
          while (stdin.hasNextInt()
                && (n = stdin.nextInt()) >= 0) {
             out.println(n); // Send each int as a text string on its own line.
          }
+         // 3) Send the server a negative integer to end the sequence.
          out.println(-1); // Send -1 to end the sequence of integer values.
          out.flush(); // all the ints
 
-         // Receive the server's response.
+         // 4) Receive back from the server the sum of the sequence.
          try {
             final String response = in.readLine();
             final int sum = Integer.parseInt(response.trim());
@@ -89,9 +94,11 @@ public class AdditionClient_Hw3_v2 {
             System.out.println("CLIENT: Cannot receive response from server.");
             System.out.println(e);
          }
+
+         //5) If not the last sequence, then go back to step 2.
       }
 
-      // Disconnect from the server.
+      // 6) Close the connection to the server.
       try {
          socket.close();
          System.out.println("CLIENT: Closed socket");

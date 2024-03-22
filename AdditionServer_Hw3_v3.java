@@ -1,7 +1,9 @@
 /*
-
-
-*/
+      Course: CS 33600
+      Name: Alec Malenfant
+      Email: alecmalenf@pnw.edu
+      Assignment: 3
+   */
 
 import java.net.*;
 import java.io.*;
@@ -87,8 +89,7 @@ public class AdditionServer_Hw3_v3 {
 
          // Implement the appropriate client/server protocol.
 
-         // Read the client's sequence of integer values,
-         // sum them, and send back the sum.
+         
          try {
             int sum = 0;
             String request;
@@ -97,13 +98,21 @@ public class AdditionServer_Hw3_v3 {
             request = in.readLine();
             int intCount = Integer.parseInt(request);
 
+
+            /*
+            * 1) Read an integer.
+            * If the integer is negative,
+            * then close the connection to the client,
+            * otherwise read the specified number of integer values,
+            * one value per line of text.
+            */
             while (intCount >= 0) { // an integer value of -1 ends the sequence
                for (int j = 0; j < intCount; j++) {
                   request = in.readLine();
                   final int n = Integer.parseInt(request.trim());
                   sum += n;
                }
-               // send sum to client
+               // 2) Send back the sum of the sequence as a text string.
                System.out.println("SERVER: Client " + clientCounter + ": Message received: sum = " + sum);
                out.println(sum); // Send the sum as a text string.
                out.flush(); // Now make sure that the response is sent.
@@ -112,8 +121,10 @@ public class AdditionServer_Hw3_v3 {
                // get the next number of ints to read
                intCount = Integer.parseInt(in.readLine().trim());
 
+               // 3) Go back to step 1.
             }
 
+            //Close connection to the client
             socket.close(); // We are done with the client's request.
             System.out.println("SERVER: Client " + clientCounter + ": Closed socket.");
          } catch (IOException e) {

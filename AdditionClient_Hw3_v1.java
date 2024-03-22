@@ -1,7 +1,9 @@
 /*
-
-
-*/
+      Course: CS 33600
+      Name: Alec Malenfant
+      Email: alecmalenf@pnw.edu
+      Assignment: 3
+   */
 
 import java.net.*;
 import java.io.*;
@@ -62,30 +64,32 @@ public class AdditionClient_Hw3_v1 {
          System.exit(-1);
       }
 
-      // Implement the appropriate client/server protocol.
+      // Implement the appropriate client/server protocol. 
 
-      // get The number of sequences from stdin and send it to the server
-      final Scanner stdin = new Scanner(System.in);
-      final int sequenceCount = stdin.nextInt();
+      // 1) Send the server a positive integer indicating the
+      //number of integer sequences that will follow.
+      final Scanner stdin = new Scanner(System.in); 
+      final int sequenceCount = stdin.nextInt(); //read the number of integer sequences
       out.println(sequenceCount); // Send each int as a text string on its own line.
       out.flush(); // all the ints
 
       // send the rest of the ints
       for (int i = 0; i < sequenceCount; i++) {
 
-         // Read the next int to get the number of ints to add together
-         final int intCount = stdin.nextInt();
+         // 2) Send the server a positive integer indicating
+         // the length of a sequence of integer values.
+         final int intCount = stdin.nextInt(); 
          out.println(intCount); // Send each int as a text string on its own line.
          out.flush(); // send the int
 
-         // read integers and send them to the server
+         // 3) Send the server a sequence of integers with the specified length.
          for (int j = 0; j < intCount; j++) {
             final int n = stdin.nextInt();
             out.println(n); // Send each int as a text string on its own line.
          }
          out.flush(); // send all the ints
 
-         // Receive the server's response.
+         // 4) Receive back from the server the sum of the sequence.
          try {
             final String response = in.readLine();
             final int sum = Integer.parseInt(response.trim());
@@ -94,9 +98,11 @@ public class AdditionClient_Hw3_v1 {
             System.out.println("CLIENT: Cannot receive response from server.");
             System.out.println(e);
          }
+
+         // 5) If not the last sequence, then go back to step 2.
       }
 
-      // Disconnect from the server.
+      // 6) Close the connection to the server.
       try {
          socket.close();
          System.out.println("CLIENT: Closed socket");

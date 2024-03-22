@@ -1,7 +1,9 @@
 /*
-
-
-*/
+      Course: CS 33600
+      Name: Alec Malenfant
+      Email: alecmalenf@pnw.edu
+      Assignment: 3
+   */
 
 import java.net.*;
 import java.io.*;
@@ -89,26 +91,35 @@ public class AdditionServer_Hw3_v2 {
          // Implement the appropriate client/server protocol.
 
          try {
-            // read the first line to get the number of sequences to read from the client
+            // 1) Read a positive integer indicating the
+            // number of integer sequences to expect.
             String request = in.readLine();
             final int sequenceCount = Integer.parseInt(request);
 
-            // read ints until sentinal, add them, return the sum. Repeat sequenceCount
-            // number of times
+            
             for (int i = 0; i < sequenceCount; i++) {
                int sum = 0;
                int n;
 
+               //2) Read a sequence of positive integer values,
+               // one value per line of text,up until a negative value.
                request = in.readLine();
                while (request != null
                      && (n = Integer.parseInt(request.trim())) >= 0) {
                   sum += n;
                   request = in.readLine();
                }
+
+               // 3) Send back the sum of the sequence as a text string.
                System.out.println("SERVER: Client " + clientCounter + ": Message received: sum = " + sum);
                out.println(sum); // Send the sum as a text string.
                out.flush(); // Now make sure that the response is sent.
+
+               // 4) If not the last sequence, then go back to step 2.
             }
+
+            
+            //) Close the connection to the client.
             socket.close(); // We are done with the client's request.
             System.out.println("SERVER: Client " + clientCounter + ": Closed socket.");
          } catch (IOException e) {
